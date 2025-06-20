@@ -7,12 +7,14 @@ import { useScrollspy } from './hooks/useScrollspy';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
+import Stats from './components/Stats';
 import Projects from './components/Projects';
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import BackToTopButton from './components/BackToTopButton';
 import ProjectModal from './components/ProjectModal';
+import SectionDivider from './components/SectionDivider';
 
 // Data & Types
 import { NAV_LINKS } from './data';
@@ -45,12 +47,22 @@ const App = () => {
 
   const smoothScroll = (e: React.MouseEvent, href: string) => {
       e.preventDefault();
-      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+      const element = document.querySelector(href);
+      if (element) {
+        const headerOffset = 64; // Height of the fixed header
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
+      }
       setIsMenuOpen(false);
   };
   
   return (
-    <div className="bg-gray-50 text-gray-800 font-sans antialiased">
+    <div className="bg-gray-100 text-gray-800 font-sans antialiased">
        
         <Header 
             isScrolled={isScrolled}
@@ -60,21 +72,57 @@ const App = () => {
             smoothScroll={smoothScroll}
         />
         
-        <main className="pt-16">
+        <main>
             <Hero smoothScroll={smoothScroll} />
+            <SectionDivider />
             <Services />
+            <SectionDivider />
+            <Stats />
+            <SectionDivider />
             <Projects onProjectSelect={setSelectedProject} />
+            <SectionDivider />
             <About smoothScroll={smoothScroll} />
-            <Contact />
         </main>
         
+        <Contact />
         <Footer />
                 
         <BackToTopButton show={showBackToTop} onClick={scrollToTop} />
 
         <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
     
-        <style>{`.bg-grid-gray-200 { background-image: linear-gradient(to right, #e5e7eb 1px, transparent 1px), linear-gradient(to bottom, #e5e7eb 1px, transparent 1px); background-size: 2rem 2rem; }`}</style>
+        <style>{`
+            .bg-grid-gray-200 { 
+                background-image: 
+                    linear-gradient(to right, #d1d5db 1px, transparent 1px), 
+                    linear-gradient(to bottom, #d1d5db 1px, transparent 1px); 
+                background-size: 3rem 3rem; 
+            }
+            main > section {
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+            @media (min-width: 1024px) {
+                main > section {
+                    padding-top: 7rem;
+                    padding-bottom: 7rem;
+                }
+            }
+            #home {
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            #contact {
+                padding-top: 5rem;
+                padding-bottom: 5rem;
+            }
+            @media (min-width: 1024px) {
+                #contact {
+                    padding-top: 7rem;
+                    padding-bottom: 7rem;
+                }
+            }
+        `}</style>
     </div>
   );
 };

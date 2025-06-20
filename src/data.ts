@@ -1,7 +1,8 @@
-import { Project } from "./types";
+import { Project, Testimonial, StatsData } from "./types";
 
 export const CLIENT_INFO = {
   name: "Pearl Solutions",
+  logoUrl: "/logo-placeholder.svg", 
   title: "Innovative Engineering Solutions",
   email: "contact@pearlsolutions.com",
   phone: "+91XXX",
@@ -51,4 +52,28 @@ export const PROJECTS: Project[] = [
     stlUrl: "/Four\ way\ connector.STL", // Example URL, replace with your own
     tags: ["Jigs & Fixtures", "Manufacturing"],
   },
+];
+
+export const STATS: StatsData = {
+  clientsServed: 75,
+  projectsCompleted: 250,
+  yearsOfExperience: 10,
+};
+
+export const TESTIMONIALS: Testimonial[] = [
+    {
+        quote: "The attention to detail and commitment to quality were outstanding. Our project was delivered on time and exceeded our expectations.",
+        name: "Rohan Patel",
+        company: "Innovatech Dynamics"
+    },
+    {
+        quote: "A true professional who brought our vision to life with precision and creativity. The collaboration was seamless and highly productive.",
+        name: "Priya Sharma",
+        company: "Apex Manufacturing"
+    },
+    {
+        quote: "Pearl Solutions provided invaluable expertise that was critical to our product's success. Highly recommended for any complex engineering challenge.",
+        name: "Ankit Desai",
+        company: "MechFuture Inc."
+    }
 ];
